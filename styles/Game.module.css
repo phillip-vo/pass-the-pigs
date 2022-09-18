@@ -1,0 +1,74 @@
+.container {
+    padding: 0 2rem;
+}
+  
+.main {
+min-height: 100vh;
+padding: 4rem 0;
+flex: 1;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+.title,
+.description {
+text-align: center;
+}
+
+.description {
+margin: 4rem 0;
+line-height: 1.5;
+font-size: 1.5rem;
+}
+
+.game_window {
+    width: 800px;
+    height: 450px;
+    border-width: 10px;
+    border-style: solid double;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10rem;
+}
+
+.action_buttons {
+    margin-top: 50px;
+}
+
+.button {
+    border: 4px solid black;
+    background: none;
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    width: 250px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.button:hover {
+    background: gainsboro;
+}
+
+@media (max-width: 600px) {
+.grid {
+    width: 100%;
+    flex-direction: column;
+}
+}
+
+@media (prefers-color-scheme: dark) {
+.card,
+.footer {
+    border-color: #222;
+}
+.code {
+    background: #111;
+}
+.logo img {
+    filter: invert(1);
+}
+}
