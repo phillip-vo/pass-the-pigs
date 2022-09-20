@@ -2,32 +2,41 @@ import Link from "next/link";
 import Head from "next/head";
 import styles from "../styles/Game.module.css";
 import Image from "next/image";
-import { useState } from "react";
-import data from "./data";
+import { useReducer } from "react";
+import { rollPigs } from "./game-utils";
+import { useEffect } from "react";
 
-const pigInitialState = {
-  id: 0,
-  name: "",
-  image: "",
-  value: 0,
+const initialState = {
+  score: 0,
+  turns: 5,
+  title: "",
+  pigOne: {
+    id: 0,
+    name: "",
+    image: "",
+    value: 0,
+  },
+  pigTwo: {
+    id: 0,
+    name: "",
+    image: "",
+    value: 0,
+  },
+  gameOver: false,
 };
 
-const gameState = {
-  score: 0,
-  rolling: false,
+const reducer = (state, action) => {
+  let newState;
+
+  if (action.type === "ROLL") {
+    newState = rollPigs(state);
+  }
+
+  return newState;
 };
 
 export default function Game() {
-  const [pigOne, setPigOne] = useState(pigInitialState);
-  const [pigTwo, setPigTwo] = useState(pigInitialState);
-
-  const rollPigs = () => {
-    const randomIndexOne = Math.floor(Math.random() * 6);
-    const randomIndexTwo = Math.floor(Math.random() * 6);
-
-    setPigOne(data[randomIndexOne]);
-    setPigTwo(data[randomIndexTwo]);
-  };
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <div className={styles.container}>
@@ -43,26 +52,33 @@ export default function Game() {
           alt="title"
         />
         <div className={styles.game_window}>
-          <div className="pig_one">
+          <div className={styles.pig_one}>
             <Image
-              src={`/images/${pigOne.image}`}
+              src={`/images/${state.pigOne.image}`}
               width={120}
               height={100}
               alt=""
             />
+            <span>{state.pigOne.name}</span>
           </div>
-          <div className="pig_two">
+          <div className={styles.pig_two}>
             <Image
-              src={`/images/${pigTwo.image}`}
+              src={`/images/${state.pigTwo.image}`}
               width={120}
               height={100}
               alt=""
             />
+            <span>{state.pigTwo.name}</span>
           </div>
         </div>
-        <h2>Score: 0</h2>
+        <h2>Score: {state.score}</h2>
+        <h2>Title: {state.title}</h2>
+        <h2>Turns: {state.turns}</h2>
         <div className={styles.action_buttons}>
-          <button className={styles.button} onClick={rollPigs}>
+          <button
+            className={styles.button}
+            onClick={() => dispatch({ type: "ROLL" })}
+          >
             Roll
           </button>
           <button className={styles.button}>Stop Rolling</button>

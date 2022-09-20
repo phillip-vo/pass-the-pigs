@@ -53,6 +53,19 @@ font-size: 1.5rem;
     background: gainsboro;
 }
 
+.pig_one, .pig_two {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pig_one span, .pig_two span {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
 @media (max-width: 600px) {
 .grid {
     width: 100%;
