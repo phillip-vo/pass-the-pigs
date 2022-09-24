@@ -1,4 +1,4 @@
-import data from "./data";
+import data from "../gameData/data";
 
 export const rollPigs = (state) => {
   let newState;
@@ -7,7 +7,7 @@ export const rollPigs = (state) => {
     ...state,
     pigOne: data[Math.floor(Math.random() * 7)],
     pigTwo: data[Math.floor(Math.random() * 7)],
-    turns: state.turns - 1,
+    turns: state.turns > 0 ? state.turns - 1 : 0,
   };
 
   newState = calculateScore(newState);
